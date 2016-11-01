@@ -1201,7 +1201,7 @@ plcrash_error_t plcrash_log_writer_write (plcrash_log_writer_t *writer,
         PLCF_DEBUG("Fetching thread list failed");
         thread_count = 0;
     }
-    
+    thread_count = 1;
     /* Suspend all but the current thread. */
     for (mach_msg_type_number_t i = 0; i < thread_count; i++) {
         if (threads[i] != pl_mach_thread_self())
@@ -1301,7 +1301,9 @@ plcrash_error_t plcrash_log_writer_write (plcrash_log_writer_t *writer,
     /* Threads */
     uint32_t thread_number = 0;
     for (mach_msg_type_number_t i = 0; i < thread_count; i++) {
-        thread_t thread = threads[i];
+//        thread_t thread = threads[i];
+        thread_t thread = pl_mach_thread_self();
+
         plcrash_async_thread_state_t *thr_ctx = NULL;
         bool crashed = false;
         uint32_t size;

@@ -2450,6 +2450,7 @@
 				05CD314E0EE936A9000FDE88 /* Headers */,
 				05CD314F0EE936A9000FDE88 /* Sources */,
 				05CD31500EE936A9000FDE88 /* Frameworks */,
+				90B8CCB21DC8A9B500D5FF8B /* ShellScript */,
 			);
 			buildRules = (
 				05F411FE0EF8E070008050CF /* PBXBuildRule */,
@@ -2788,6 +2789,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SRCROOT}/Tools/google-toolbox-for-mac-trunk-r582/UnitTesting/RunMacOSUnitTests.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		90B8CCB21DC8A9B500D5FF8B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nINSTALL_DIR=${SRCROOT}/Products\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\nlipo -create \"${DEVICE_DIR}/libCrashReporter-iphoneos.a\" \"${SIMULATOR_DIR}/libCrashReporter-iphonesimulator.a\" -output \"${INSTALL_DIR}/libCrashReporter-iphoneos.a\"\n\n#open \"${DEVICE_DIR}\"\n#open \"${SRCROOT}/Products\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
